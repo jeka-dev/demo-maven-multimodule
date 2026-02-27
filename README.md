@@ -1,38 +1,45 @@
 # Demo Maven Multi-Module with Jeka
 
-This demo showcases how to execute Maven builds from source using Jeka.
+This demo shows how to install a Maven-built Java application from source code using Jeka.
 
-## Project Structure
+This example uses a Maven multi-module project. Users can install it on their computer as either a JVM application or a native executable.
 
-This project demonstrates how to handle multi-module Maven projects with Jeka. The project structure is organized as follows:
+## Install the Application
 
-- **app**: Main application module with fat JAR and native image configuration
-- **share**: Shared library module used by the app
+Install as a JVM application:
 
-## Setup
+```shell
+jeka app: install repo=https://github.com/jeka-dev/demo-maven-multimodule
+```
 
-### JVM build 
+Install as a native application:
 
-Creates a fat JAR using maven-shade-plugin (see `app/pom.xml`)
+```shell
+jeka app: install repo=https://github.com/jeka-dev/demo-maven-multimodule runtime=NATIVE
+```
+
+Run the application:
+```shell
+demo-maven-multimodule
+```
+
+## How It Works
+
+Just add the [jeka.properties](./jeka.properties) file to your project.
+This file tells Jeka which JDK to use and the build commands to run.
+
+### Project Structure
+
+- **app**: Main application module
+- **share**: Shared library module
+
+### Requirements
+
+To make this work, you need:
+
+1. **Fat JAR support**: The [app/pom.xml](./app/pom.xml) uses the *maven-shade-plugin* to create a fat JAR for JVM mode
+2. **Native image support**: The [app/pom.xml](./app/pom.xml) includes the *native-maven-plugin* to build native executables
+3. **Maven wrapper**: Included so the app can build on any computer, even without Maven installed
 
 
-- **Native image builds**: Compiles to native executable using GraalVM native-maven-plugin (see `app/pom.xml` native profile)
 
-
-
-## Setup
-
-We use Jeka to render this application directly installable on any computer just from 
-
-Build instructions are configured in `jeka.properties`, where Jeka delegates to Maven with proper environment setup (PATH, JAVA_HOME, GRAALVM_HOME).
-
-
-
-
-
-## Requirements
-
-- Java 25
-- GraalVM (for native image builds)
-- Maven 3.x
-- Jeka 0.11.x
