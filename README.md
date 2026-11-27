@@ -4,6 +4,11 @@ This demo shows how to install a Maven-built Java application from source code u
 
 This example uses a Maven multi-module project. Users can install it on their computer as either a JVM application or a native executable.
 
+## Prerequisites
+
+[JeKa installed](https://jeka-dev.github.io/jeka/installation/). JeKa downloads the JDK (GraalVM, as set in
+[jeka.properties](./jeka.properties)) and Maven runs through its wrapper: you don't need Maven or a JDK.
+
 ## Install the Application
 
 Install as a JVM application:
@@ -23,10 +28,16 @@ Run the application:
 demo-maven-multimodule
 ```
 
+Uninstall it:
+```shell
+jeka app: uninstall name=demo-maven-multimodule
+```
+
 ## How It Works
 
 Just add the [jeka.properties](./jeka.properties) file to your project.
-This file tells Jeka which JDK to use and the build commands to run.
+This file tells JeKa which JDK to use, and the build commands to run: `jeka.program.build` for the JVM application,
+`jeka.program.build.native` for the native one. Both call `maven: wrapPackage` on the `app` module.
 
 ### Project Structure
 
@@ -41,5 +52,7 @@ To make this work, you need:
 2. **Native image support**: The [app/pom.xml](./app/pom.xml) includes the *native-maven-plugin* to build native executables
 3. **Maven wrapper**: Included so the app can build on any computer, even without Maven installed
 
+## Links
 
-
+- [app KBean](https://jeka-dev.github.io/jeka/reference/kbeans-app/)
+- [maven KBean](https://jeka-dev.github.io/jeka/reference/kbeans-maven/)
