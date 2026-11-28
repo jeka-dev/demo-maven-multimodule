@@ -39,3 +39,6 @@ build/
 .DS_Store
 /.jeka-work/
 /jeka-output/
+
+### maven-shade-plugin ###
+dependency-reduced-pom.xml
